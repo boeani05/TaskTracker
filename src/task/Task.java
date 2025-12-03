@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     private static int idCounter = 1;
     private final int id;
-    private final String description;
+    private String description;
     private Progress status;
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -50,6 +50,14 @@ public class Task {
 
     public int getId() {
         return this.id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String toJson() {
