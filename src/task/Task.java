@@ -60,6 +60,10 @@ public class Task {
         this.updatedAt = updatedAt;
     }
 
+    public void setStatus(Progress status) {
+        this.status = status;
+    }
+
     public String toJson() {
         String escapedDescription = this.description.replace("\"", "\\\"");
         return String.format(
