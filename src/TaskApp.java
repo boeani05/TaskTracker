@@ -13,6 +13,7 @@ import task.TaskManager;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import status.Progress;
 
 public class TaskApp {
     public static void main(String[] args) {
@@ -89,7 +90,7 @@ public class TaskApp {
                     int idOfTaskToDelete;
                     String confirmation;
 
-                    System.out.println("=== What task would you like to delete? ===");
+                    System.out.println("=== Enter the ID of the task you would like to delete ===");
 
 
                     while (true) {
@@ -115,6 +116,58 @@ public class TaskApp {
 
                     if (confirmation.equals("Y")) {
                         taskManager.deleteTask(idOfTaskToDelete);
+                    }
+                    break;
+                case 4:
+                    int idOfTaskToMark;
+                    int progressStatusChoice;
+
+                    System.out.println("=== Enter the ID of the task you would like to mark ===");
+
+                    while (true) {
+                        try {
+                            idOfTaskToMark = scanner.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.err.println("Please enter a valid ID!");
+                        }
+                        finally {
+                            scanner.nextLine();
+                        }
+                    }
+
+                    try {
+                        taskManager.doesTaskExist(idOfTaskToMark);
+                    } catch (TaskIdNotFoundException e) {
+                        System.err.println("This Task-ID does no exist!\n");
+                        continue;
+                    }
+
+                    System.out.printf("""
+                            === How would you like to mark the task? ===
+                            1. %s
+                            2. %s
+                            3. %s
+                            
+                            """,
+                            (Object[]) Progress.values()
+                    );
+
+                    while (true) {
+                        try {
+                            progressStatusChoice = scanner.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("Please enter a valid status!");
+                        }
+                        finally {
+                            scanner.nextLine();
+                        }
+                    }
+
+                    switch (progressStatusChoice) {
+                        case 1:
+                            taskManager.markTask(idOfTaskToMark, progressStatusChoice);
                     }
             }
         }
