@@ -1,6 +1,7 @@
 package task;
 
 import exception.TaskIdNotFoundException;
+import status.Progress;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -48,6 +49,10 @@ public class TaskManager {
         saveTasksToJson();
 
         System.out.println("--- Task deleted successfully ---\n");
+    }
+
+    public void markTask(int taskId, int progressChoice) {
+        Task taskToMark = tasks.get(taskId);
     }
 
     private void saveTasksToJson() {
