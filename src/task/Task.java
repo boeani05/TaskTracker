@@ -12,7 +12,7 @@ public class Task {
     private Progress status;
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private DateTimeFormatter dateFormatter;
+    private final DateTimeFormatter dateFormatter;
 
     public Task(String description) {
         this(idCounter++, description, Progress.NOT_DONE, LocalDateTime.now(), LocalDateTime.now());
@@ -44,12 +44,16 @@ public class Task {
                 this.id,
                 this.description,
                 this.status,
-                this.createdAt,
-                this.updatedAt);
+                dateFormatter.format((this.createdAt)),
+                dateFormatter.format(this.updatedAt));
     }
 
     public int getId() {
         return this.id;
+    }
+
+    public Progress getStatus() {
+        return status;
     }
 
     public void setDescription(String description) {
