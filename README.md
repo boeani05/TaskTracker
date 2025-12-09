@@ -53,10 +53,33 @@ To compile and run the project, you need a Java Development Kit (JDK) version 17
 Upon starting the application, a main menu will be displayed:
 === Task Tracker ===
 
-Add Task
-Update Task
-Delete Task
-Mark Task
-List Task(s) # List by status
-List all Tasks
-Exit
+* Add Task
+* Update Task
+* Delete Task
+* Mark Task
+* List Task(s) # List by status
+* List all Tasks
+* Exit
+
+
+Follow the on-screen instructions to manage your tasks:
+
+*   **1. Add Task**: Enter a description for the new task.
+*   **2. Update Task**: Enter the ID of the task to update and then a new description.
+*   **3. Delete Task**: Enter the ID of the task to delete and confirm the action.
+*   **4. Mark Task**: Enter the task ID, then a number (1-3) for the new status (1: DONE, 2: IN PROGRESS, 3: NOT DONE).
+*   **5. List Task(s)**: Choose a number (1-3) to list tasks by status (1: DONE, 2: IN PROGRESS, 3: NOT DONE).
+*   **6. List all Tasks**: Displays all tasks currently in the system.
+*   **7. Exit**: Exits the application. All changes are automatically saved.
+
+## Future Enhancements
+
+*   More advanced filtering and sorting options for tasks (e.g., by creation date, alphabetically).
+*   Ability to view a single task by ID (detail view).
+*   A graphical user interface (GUI) instead of the command line.
+*   Use of an external JSON library (e.g., Jackson, Gson) for more robust serialization/deserialization.
+*   Unit tests for core logic (TaskManager, Task).
+
+## License
+
+This project is licensed under the MIT License. See the LICENCE.md file (if present) for more details.
