@@ -49,7 +49,7 @@ To compile and run the project, you need a Java Development Kit (JDK) version 17
 3.  **Run:**
     Navigate to the parent directory and run the application:
     ```bash
-    java -cp bin TaskApp
+    java -cp ../bin TaskApp
     ```
 ## Usage
 Upon starting the application, a main menu will be displayed:
