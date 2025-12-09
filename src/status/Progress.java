@@ -14,4 +14,13 @@ public enum Progress {
     public int getNumVal() {
         return numVal;
     }
+
+    public static Progress fromNumVal(int numVal) {
+        for (Progress p : Progress.values()) {
+            if (p.getNumVal() == numVal) {
+                return p;
+            }
+        }
+        throw new IllegalArgumentException("Invalid progress number: " + numVal);
+    }
 }
