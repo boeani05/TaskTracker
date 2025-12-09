@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -23,7 +25,7 @@ public class TaskManager {
         tasks.put(task.getId(), task);
         saveTasksToJson();
 
-        System.out.printf("=== Task added successfully (ID: %d)%n", task.getId());
+        System.out.printf("=== Task added successfully (ID: %d)%n%n", task.getId());
     }
 
     public void doesTaskExist(int taskId) throws TaskIdNotFoundException {
@@ -52,7 +54,53 @@ public class TaskManager {
     }
 
     public void markTask(int taskId, int progressChoice) {
+        Progress progressToChange = null;
+
         Task taskToMark = tasks.get(taskId);
+
+        for (Progress progress : Progress.values()) {
+            if (progress.getNumVal() == progressChoice) {
+                progressToChange = progress;
+                break;
+            }
+        }
+        taskToMark.setStatus(progressToChange);
+        taskToMark.setUpdatedAt(LocalDateTime.now());
+
+        saveTasksToJson();
+
+        System.out.println("=== Task marked successfully! ===\n");
+    }
+
+    public void listAllTasksWithStatus(int tasksWithStatusNumber) {
+        List<Task> markedTasks = new ArrayList<>();
+
+        Progress progress;
+
+        System.out.printf("=== Tasks that are %s ===\n", Progress.fromNumVal(tasksWithStatusNumber));
+
+        for (Task task : tasks.values()) {
+            if (task.getStatus().getNumVal() == tasksWithStatusNumber) {
+                markedTasks.add(task);
+                System.out.println(task);
+            }
+        }
+
+        if (markedTasks.isEmpty()) {
+            System.out.println("--- No tasks to display ---\n");
+        }
+    }
+
+    public void listAllTasks() {
+        if (!tasks.isEmpty()) {
+            System.out.println("=== Tasks ===\n");
+
+            for (Task task : tasks.values()) {
+                System.out.println(task);
+            }
+        } else {
+            System.out.println("--- No tasks to display ---\n");
+        }
     }
 
     private void saveTasksToJson() {
