@@ -82,4 +82,4 @@ Follow the on-screen instructions to manage your tasks:
 
 ## License
 
-This project is licensed under the MIT License. See the LICENCE.md file (if present) for more details.
+This project is licensed under the MIT License. See the LICENCE.md file for more details.
