@@ -1,19 +1,9 @@
-/*
-TODO: add, update and delete tasks
-TODO: mark a task as in progress or done
-TODO: list all tasks
-TODO: list all tasks that are done
-TODO: list all tasks that are not done
-TODO: list all tasks that are in progress
- */
-
 import exception.TaskIdNotFoundException;
 import task.Task;
 import task.TaskManager;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import status.Progress;
 
 public class TaskApp {
     public static void main(String[] args) {
@@ -30,7 +20,8 @@ public class TaskApp {
                     3. Delete Task
                     4. Mark Task
                     5. List Task(s)
-                    6. Exit
+                    6. List all Tasks
+                    7. Exit
                     """);
 
             while (true) {
@@ -130,8 +121,7 @@ public class TaskApp {
                             break;
                         } catch (InputMismatchException e) {
                             System.err.println("Please enter a valid ID!");
-                        }
-                        finally {
+                        } finally {
                             scanner.nextLine();
                         }
                     }
@@ -139,38 +129,71 @@ public class TaskApp {
                     try {
                         taskManager.doesTaskExist(idOfTaskToMark);
                     } catch (TaskIdNotFoundException e) {
-                        System.err.println("This Task-ID does no exist!\n");
+                        System.err.println("This Task-ID does not exist!\n");
                         continue;
                     }
 
-                    System.out.printf("""
+                    System.out.println("""
                             === How would you like to mark the task? ===
-                            1. %s
-                            2. %s
-                            3. %s
-                            
-                            """,
-                            (Object[]) Progress.values()
+                            1. DONE
+                            2. IN PROGRESS
+                            3. NOT DONE
+                            """
                     );
 
                     while (true) {
                         try {
                             progressStatusChoice = scanner.nextInt();
-                            break;
+                            if (progressStatusChoice == 1 || progressStatusChoice == 2 || progressStatusChoice == 3) {
+                                taskManager.markTask(idOfTaskToMark, progressStatusChoice);
+                                break;
+                            } else {
+                                System.err.println("Invalid status choice! Please enter 1, 2, or 3.\n");
+                            }
                         } catch (InputMismatchException e) {
-                            System.out.println("Please enter a valid status!");
-                        }
-                        finally {
+                            System.err.println("Please enter a valid status!");
+                        } finally {
                             scanner.nextLine();
                         }
                     }
+                    break;
+                case 5:
+                    int tasksWithStatusNumber;
 
-                    switch (progressStatusChoice) {
-                        case 1:
-                            taskManager.markTask(idOfTaskToMark, progressStatusChoice);
+                    System.out.println("""
+                            === What tasks would you like to see? ===
+                            1. DONE
+                            2. IN PROGRESS
+                            3. NOT DONE
+                            
+                            """);
+
+                    while (true) {
+                        try {
+                            tasksWithStatusNumber = scanner.nextInt();
+                            if (tasksWithStatusNumber == 1 || tasksWithStatusNumber == 2 || tasksWithStatusNumber == 3) {
+                                taskManager.listAllTasksWithStatus(tasksWithStatusNumber);
+                                break;
+                            } else {
+                                System.err.println("Please enter a valid number between 1 - 3!");
+                            }
+                        } catch (InputMismatchException e) {
+                            System.err.println("Please enter a valid number!");
+                        } finally {
+                            scanner.nextLine();
+                        }
                     }
+                    break;
+                case 6:
+                    taskManager.listAllTasks();
+                    break;
+                case 7:
+                    scanner.close();
+                    doesMenuShow = false;
+                    break;
+                default:
+                    System.err.println("Please enter a valid choice between 1 - 6!");
             }
         }
-
     }
 }
